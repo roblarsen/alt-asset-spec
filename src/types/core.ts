@@ -4,7 +4,9 @@ export type ProvenanceEventType =
   | 'auction_sale' 
   | 'private_sale' 
   | 'asset_swap' 
-  | 'grading_event' 
+  | 'grading_event'       // Initial raw grading process
+  | 'reholder'            // Same company, new shell/label (e.g., old CGC label to custom label)
+  | 'regrade'             // Cracked and re-evaluated (same company or cross-company crossover)
   | 'pedigree_discovery';
 
 export interface CurrencyAmount {
@@ -13,16 +15,22 @@ export interface CurrencyAmount {
 }
 
 export interface GradingAuthentication {
-  /** The authenticating entity (e.g., 'CGC', 'PCGS', 'PSA', 'WATA') */
+  /** The authenticating entity (e.g., 'CGC', 'WATA', 'PSA', 'PCGS') */
   grader: string;          
   /** The unique grading identity registry/certification number */
   certNumber?: string;     
-  /** Normalized numeric grade value for linear algorithmic sorting (e.g., 9.2, 10.0) */
+  /** * Normalized numeric grade value for linear sorting (e.g., 9.2, 10.0).
+   * Optional to support legacy records that only feature descriptive or letter grades.
+   */
   numericGrade?: number;    
-  /** Original unparsed raw grade notation output by the browser scraper scripts */
-  rawGradeString?: string; 
+  /** * The original unparsed grade string notation. 
+   * Required as a fallback if numericGrade is undefined (e.g., "VF", "Fine/Very Fine", "A PRISTINE 10").
+   */
+  rawGradeString: string; 
   /** Condition or signature tracking qualifiers (e.g., ['Restored', 'Signature Series']) */
   qualifiers?: string[];   
+  /** Identifies if this is the active current encapsulation configuration for the asset */
+  isActive: boolean;
 }
 
 export interface SwappedAssetReference {
@@ -40,7 +48,7 @@ export interface ProvenanceEvent {
   eventType: ProvenanceEventType;
   /** ISO 8601 extended date schema representation (YYYY-MM-DD or YYYY-MM) */
   date: string;            
-  /** Platform entity coordinating the transaction (e.g., 'Heritage Auctions') */
+  /** Platform entity coordinating the transaction or service (e.g., 'Heritage Auctions', 'CGC') */
   platform?: string;       
   lotNumber?: string;
   sourceLink?: string;       
@@ -51,6 +59,13 @@ export interface ProvenanceEvent {
   counterpartyTo?: string;   
   /** Array of references populated strictly when handling 'asset_swap' actions */
   swappedAssets?: SwappedAssetReference[]; 
+  
+  /* Serialization Tracking (For 'reholder' and 'regrade' events) */
+  /** The certification number that was retired or cracked open */
+  previousCertNumber?: string; 
+  /** The new certification number issued for the asset */
+  newCertNumber?: string;      
+  
   /** Detailed archival notation or provenance event commentary strings */
   notes?: string;            
 }
@@ -66,7 +81,10 @@ export interface AltAssetBase {
   urn: string;             
   schemaVersion: string;   
   assetClass: AssetClass;
-  authentication: GradingAuthentication;
+  /** The active authentication state and certification shell details */
+  currentAuthentication: GradingAuthentication;
+  /** Track every previous certification shell this exact physical asset has historically inhabited */
+  historicalAuthentication?: GradingAuthentication[];
   provenanceLedger: ProvenanceEvent[];
   tags?: string[];           
   generalCommentary?: string;
