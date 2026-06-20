@@ -8,7 +8,7 @@
 
     /* Compilation Output Control */
     "outDir": "./dist",
-    "rootDir": "./src/types/",
+    "rootDir": "./src/",
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,

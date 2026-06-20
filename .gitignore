@@ -1,0 +1,44 @@
+# Dependencies
+node_modules/
+.pnp/
+.pnp.js
+
+# Production Build Outputs
+dist/
+lib/
+out/
+tsconfig.tsbuildinfo
+
+# Testing and Coverage
+coverage/
+.nyc_output/
+.vitest/
+html/
+
+# Local Environment & Secrets
+.env
+.env.local
+.env.*.local
+*.pem
+
+# IDEs and System Garbage
+.DS_Store
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+vitest-debug.log*
+
+# Temporary/Scratch Files
+.cache/
+.eslintcache
