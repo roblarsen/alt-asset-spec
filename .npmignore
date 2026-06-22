@@ -1,0 +1,14 @@
+# Exclude entire local engine workspaces
+tests/
+.vitest/
+coverage/
+
+# Developer Environment parameters
+.vscode/
+.idea/
+.env*
+tsconfig.tsbuildinfo
+
+# OS Junk
+.DS_Store
+Thumbs.db
