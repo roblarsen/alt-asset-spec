@@ -7,7 +7,8 @@ export type ProvenanceEventType =
   | 'grading_event'       // Initial raw grading process
   | 'reholder'            // Same company, new shell/label (e.g., old CGC label to custom label)
   | 'regrade'             // Cracked and re-evaluated (same company or cross-company crossover)
-  | 'pedigree_discovery';
+  | 'pedigree_discovery'
+  | 'asset_merge'// Native support for physical asset identity consolidation;
 
 export interface CurrencyAmount {
   amount: number;
@@ -52,6 +53,9 @@ export interface ProvenanceEvent {
   platform?: string;       
   lotNumber?: string;
   sourceLink?: string;       
+  /* Identity Consolidation Tracking */
+  mergedUrn?: string;      // The retired duplicate URN that was absorbed
+  notes?: string;          // e.g., "Identified as identical to raw record tracking URN X via unique cover alignment marks."
   /** Cash components directly cleared during the transaction step */
   financials?: CurrencyAmount; 
   pedigreeName?: string;   
