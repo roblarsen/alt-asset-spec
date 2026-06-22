@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { isAltAsset, validateProvenanceLedger } from '../src/validator.js';
+import { isAltAsset, validateProvenanceLedger } from '../src/utils/validator.js';
 import { getRecordHighSale, getAllAssociatedCertifications } from '../src/utils/ledgerUtils.js';
 import { actionComics1Mock, fantasticFour1RegradeMock } from './fixtures/comicFixture.js';
 
