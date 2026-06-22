@@ -1,4 +1,4 @@
-import { AltAssetBase } from './types/core.js';
+import { AltAssetBase } from '../types/core.js';
 
 /**
  * High-performance runtime Type Guard to validate if an object conforms to AltAssetBase.

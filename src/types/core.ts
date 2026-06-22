@@ -69,9 +69,7 @@ export interface ProvenanceEvent {
   previousCertNumber?: string; 
   /** The new certification number issued for the asset */
   newCertNumber?: string;      
-  
-  /** Detailed archival notation or provenance event commentary strings */
-  notes?: string;            
+             
 }
 
 export interface MarketMetrics {
