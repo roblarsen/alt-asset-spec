@@ -31,7 +31,7 @@ export type ProvenanceEventType =
   | 'reholder'            // Same company, new shell/label (e.g., old CGC label to custom label)
   | 'regrade'             // Cracked and re-evaluated (same company or cross-company crossover)
   | 'pedigree_discovery'
-  | 'asset_merge' // Native support for physical asset identity consolidation;
+  | 'asset_merge'
 
 /**
  * A monetary value paired with its ISO 4217 currency denomination.
