@@ -25,12 +25,16 @@ export function getRecordHighSale(asset: AltAssetBase, targetCurrency = 'USD'): 
  * @returns A brand-new AltAssetBase object featuring a unified chronological ledger
  */
 export function mergeAssetIdentities<T extends AltAssetBase>(canonical: T, duplicate: T): T {
+  const duplicateCurrentAuthentication = duplicate.currentAuthentication
+    ? [{ ...duplicate.currentAuthentication, isActive: false }]
+    : [];
+
   // 1. Initialize a unified historical authentication ledger array
   const combinedHistory = [
     ...(canonical.historicalAuthentication || []),
     ...(duplicate.historicalAuthentication || []),
     // Ingest the duplicate's current authentication state as a historical state
-    { ...duplicate.currentAuthentication, isActive: false }
+    ...duplicateCurrentAuthentication
   ];
 
   // Deduplicate historical snapshots based on unique certification keys
@@ -80,7 +84,7 @@ export function mergeAssetIdentities<T extends AltAssetBase>(canonical: T, dupli
 export function getAllAssociatedCertifications(asset: AltAssetBase): string[] {
   const certs = new Set<string>();
   
-  if (asset.currentAuthentication.certNumber) {
+  if (asset.currentAuthentication?.certNumber) {
     certs.add(asset.currentAuthentication.certNumber);
   }
   
