@@ -108,6 +108,15 @@ if (isAltAsset(incomingData)) {
 * `npm run build` - Compiles the source TypeScript, generating ESM distributions and `.d.ts` declarations to `/dist`.
 * `npm run test` - Executes the unit testing suite via Vitest against historical asset benchmarks (including the Church *Superman* #1).
 * `npm run typecheck` - Compiles the codebase without emitting artifacts to run strict type checks.
+* `npm run release:check` - Runs type checks, tests, and build in release order.
+
+### Publishing
+
+This repository publishes to npm via GitHub Actions when a GitHub Release is published.
+
+1. Add an npm automation token as the repository secret `NPM_TOKEN`.
+2. Create and publish a GitHub Release (for example, from a `vX.Y.Z` tag).
+3. The `Publish to npm` workflow installs dependencies, runs `npm run release:check`, and publishes with `npm publish --provenance`.
 
 ## License
 
