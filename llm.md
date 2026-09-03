@@ -10,3 +10,9 @@ This package is a strict, type-safe open data specification and validation engin
 1. **Immutable Identifiers:** Every asset requires a canonical, un-spaced Uniform Resource Name (`urn`) acting as its primary key.
 2. **Timeline Integrity:** Historical changes, transactions, and gradings must be logged sequentially inside the `provenanceLedger` array.
 3. **Context Isolation:** Non-transactional milestones (like `regrade` or `reholder` events) must never inject an empty or zeroed `financials` payload block; omit the object entirely.
+
+## Pull Request Governance Requirements (ACM v1.1)
+- For every implementation or refactor output, include an Assumptions & Constraints Manifest (ACM v1.1) block in the PR description.
+- ACM blocks must use exact delimiters: `<!-- ACM-START -->` and `<!-- ACM-END -->`.
+- Manifest frontmatter must use typed contract statuses (`guaranteed`, `conditional`, `unsupported`, `not_applicable`, `unknown`) and distributed primitives.
+- Any `guaranteed` contract must include concrete evidence; any `conditional` contract must include conditions; unsupported/unknown boundaries must be explicitly documented.

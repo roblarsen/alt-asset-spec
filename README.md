@@ -109,6 +109,14 @@ if (isAltAsset(incomingData)) {
 * `npm run test` - Executes the unit testing suite via Vitest against historical asset benchmarks (including the Church *Superman* #1).
 * `npm run typecheck` - Compiles the codebase without emitting artifacts to run strict type checks.
 * `npm run release:check` - Runs type checks, tests, and build in release order.
+* `npm run acm:validate:file -- <path>` - Validates a markdown ACM block file via `@roblarsen/acm-cli`.
+* `npm run acm:validate:pr-body -- "<pr body text>"` - Validates ACM content embedded in PR text via `@roblarsen/acm-cli`.
+
+### Pull Request Governance (ACM v1.1)
+
+All pull requests must include a valid Assumptions & Constraints Manifest block in the PR description, enclosed by `<!-- ACM-START -->` and `<!-- ACM-END -->`.
+
+The `ACM Governance Gate` workflow runs on pull request open/edit/synchronize/reopen events and validates the PR ACM content. Invalid or missing ACM content fails CI and blocks merge.
 
 ### Publishing
 
