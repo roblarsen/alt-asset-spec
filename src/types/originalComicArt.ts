@@ -1,3 +1,5 @@
+import { AltAssetBase } from './core.js';
+
 export type ArtWorkType = 
   | 'interior_page'
   | 'splash'
