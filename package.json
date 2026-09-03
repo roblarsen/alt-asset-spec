@@ -23,8 +23,8 @@
     "LICENSE"
   ],
   "scripts": {
-    "acm:validate:file": "npx --yes @open-standards/acm-cli validate --file",
-    "acm:validate:pr-body": "npx --yes @open-standards/acm-cli validate --pr-body",
+    "acm:validate:file": "npx --yes @roblarsen/acm-cli validate --file",
+    "acm:validate:pr-body": "npx --yes @roblarsen/acm-cli validate --pr-body",
     "build": "tsc",
     "clean": "node -e \"fs.rmSync('dist', { recursive: true, force: true })\"",
     "prebuild": "npm run clean",
