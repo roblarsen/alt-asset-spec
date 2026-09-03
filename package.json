@@ -43,6 +43,10 @@
   ],
   "author": "Rob Larsen",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/roblarsen/alt-asset-spec.git"
+  },
   "devDependencies": {
     "typescript": "^5.4.5",
     "vitest": "^1.6.0"
