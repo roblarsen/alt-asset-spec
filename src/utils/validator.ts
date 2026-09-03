@@ -5,21 +5,28 @@ import { AltAssetBase } from '../types/core.js';
  */
 export function isAltAsset(obj: any): obj is AltAssetBase {
   if (!obj || typeof obj !== 'object') return false;
+
+  const hasValidCurrentAuthentication =
+    obj.currentAuthentication === undefined ||
+    (typeof obj.currentAuthentication === 'object' && obj.currentAuthentication !== null);
   
   // Enforce mandatory structural keys
   const hasRequiredRootKeys = 
     typeof obj.urn === 'string' &&
     typeof obj.schemaVersion === 'string' &&
-    ['comic', 'trading_card', 'video_game', 'coin'].includes(obj.assetClass) &&
-    typeof obj.currentAuthentication === 'object' &&
+    ['comic', 'original_art', 'trading_card', 'video_game', 'coin'].includes(obj.assetClass) &&
+    hasValidCurrentAuthentication &&
     Array.isArray(obj.provenanceLedger) &&
     typeof obj.customMetadata === 'object';
 
   if (!hasRequiredRootKeys) return false;
 
-  // Enforce mandatory currentAuthentication parameters
+  // Enforce mandatory currentAuthentication parameters if auth is provided
   const auth = obj.currentAuthentication;
-  if (typeof auth.grader !== 'string' || typeof auth.rawGradeString !== 'string' || typeof auth.isActive !== 'boolean') {
+  if (
+    auth !== undefined &&
+    (typeof auth.grader !== 'string' || typeof auth.rawGradeString !== 'string' || typeof auth.isActive !== 'boolean')
+  ) {
     return false;
   }
 
